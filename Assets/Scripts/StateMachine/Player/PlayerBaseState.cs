@@ -1,4 +1,4 @@
-public abstract class PlayerBaseState : State
+public abstract class PlayerBaseState
 {
     protected PlayerStateMachine stateMachine;
 
@@ -6,4 +6,8 @@ public abstract class PlayerBaseState : State
     {
         this.stateMachine = stateMachine;
     }
+
+    public abstract void Enter();
+    public abstract void Tick(float deltaTime);
+    public abstract void Exit();
 }

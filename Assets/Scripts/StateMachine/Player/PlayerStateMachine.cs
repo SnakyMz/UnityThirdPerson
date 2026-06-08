@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerStateMachine : StateMachine
+public class PlayerStateMachine : MonoBehaviour
 {
     public Vector2 MoveInput { get; private set; }
 
     PlayerInput playerInput;
+
+    protected PlayerBaseState currentState;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -16,10 +18,9 @@ public class PlayerStateMachine : StateMachine
         SwitchState(new PlayerIdleState(this));
     }
 
-    // Update is called once per frame
     void Update()
     {
-
+        currentState?.Tick(Time.deltaTime);
     }
 
     void OnActionTriggered(InputAction.CallbackContext context)
@@ -28,5 +29,11 @@ public class PlayerStateMachine : StateMachine
         {
             MoveInput = context.ReadValue<Vector2>();
         }
+    }
+    public void SwitchState(PlayerBaseState newState)
+    {
+        if (currentState != null) currentState.Exit();
+        currentState = newState;
+        currentState.Enter();
     }
 }
