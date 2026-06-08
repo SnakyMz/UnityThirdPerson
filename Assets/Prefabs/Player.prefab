@@ -1579,6 +1579,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8252152536589479503}
   - component: {fileID: 2615630243829540987}
+  - component: {fileID: 3645601288442260950}
   - component: {fileID: 7665723543527425564}
   - component: {fileID: 616234043411622740}
   m_Layer: 0
@@ -1630,6 +1631,31 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!143 &3645601288442260950
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5233530844437650473}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1.8
+  m_Radius: 0.4
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.018
+  m_MinMoveDistance: 0
+  m_Center: {x: 0, y: 0.87, z: 0}
 --- !u!114 &7665723543527425564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1672,6 +1698,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 694abfe6ca28c494c9afc0b50f792e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStateMachine
+  <MoveSpeed>k__BackingField: 5
+  <TurnSpeed>k__BackingField: 5
 --- !u!1 &5292718143136497593
 GameObject:
   m_ObjectHideFlags: 0

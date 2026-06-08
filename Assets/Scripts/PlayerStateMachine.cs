@@ -4,18 +4,26 @@ using UnityEngine.InputSystem;
 public class PlayerStateMachine : MonoBehaviour
 {
     public Vector2 MoveInput { get; private set; }
-
-    PlayerInput playerInput;
+    public CharacterController Controller { get; private set; }
+    public Animator AnimationController { get; private set; }
+    public Transform MainCamera { get; private set; }
+    [field: SerializeField] public float MoveSpeed { get; private set; }
+    [field: SerializeField] public float TurnSpeed { get; private set; }
 
     protected PlayerBaseState currentState;
+
+    PlayerInput playerInput;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Controller = GetComponent<CharacterController>();
+        AnimationController = GetComponent<Animator>();
+        MainCamera = Camera.main.transform;
         playerInput = GetComponent<PlayerInput>();
         playerInput.onActionTriggered += OnActionTriggered;
 
-        SwitchState(new PlayerIdleState(this));
+        SwitchState(new PlayerMoveState(this));
     }
 
     void Update()
