@@ -7,7 +7,13 @@ public class Targeter : MonoBehaviour
     [SerializeField] CinemachineTargetGroup targetGroup;
     public Target CurrentTarget { get; private set; }
 
+    PlayerStateMachine stateMachine;
     List<Target> targets = new List<Target>();
+
+    void Awake()
+    {
+        stateMachine = GetComponentInParent<PlayerStateMachine>();
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -15,6 +21,11 @@ public class Targeter : MonoBehaviour
         {
             targets.Add(target);
             target.OnDestroyed += RemoveTarget;
+            if (CurrentTarget == null)
+            {
+                CurrentTarget = target;
+                targetGroup.AddMember(target.transform, 1, 2);
+            }
         }
     }
 
@@ -22,7 +33,7 @@ public class Targeter : MonoBehaviour
     {
         if (other.TryGetComponent<Target>(out Target target))
         {
-            targets.Remove(target);
+            RemoveTarget(target);
         }
     }
 

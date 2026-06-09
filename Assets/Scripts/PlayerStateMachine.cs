@@ -12,6 +12,7 @@ public class PlayerStateMachine : MonoBehaviour
     public CinemachineTargetGroup TargetGroup { get; private set; }
     public Targeter Targeter { get; private set; }
     [field: SerializeField] public float MoveSpeed { get; private set; }
+    [field: SerializeField] public float TargetSpeed { get; private set; }
     [field: SerializeField] public float TurnSpeed { get; private set; }
 
     protected PlayerBaseState currentState;

@@ -16,10 +16,11 @@ public class PlayerTargetState : PlayerBaseState
         {
             stateMachine.SwitchState(new PlayerMoveState(stateMachine));
         }
-        else
-        {
-            stateMachine.TargetGroup.AddMember(stateMachine.Targeter.CurrentTarget.transform, 1, 2);
-        }
+
+        Vector3 moveDirection = new Vector3(stateMachine.MoveInput.x, 0, stateMachine.MoveInput.y).normalized;
+        Vector3 targetDirection = Quaternion.AngleAxis(stateMachine.MainCamera.eulerAngles.y, Vector3.up) * moveDirection;
+        Move(targetDirection * stateMachine.TargetSpeed, deltaTime);
+        FaceTarget();
     }
 
     public override void Exit()
