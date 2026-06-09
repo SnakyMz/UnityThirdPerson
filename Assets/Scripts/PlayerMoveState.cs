@@ -17,7 +17,7 @@ public class PlayerMoveState : PlayerBaseState
         Vector3 cameraDirection = Quaternion.AngleAxis(stateMachine.MainCamera.eulerAngles.y, Vector3.up) * movedirection;
 
         stateMachine.AnimationController.SetFloat(MoveSpeedHash, movedirection.magnitude);
-        stateMachine.Controller.Move(cameraDirection * stateMachine.MoveSpeed * deltaTime);
+        Move(cameraDirection * stateMachine.MoveSpeed, deltaTime);
 
         if (stateMachine.MoveInput == Vector2.zero) return;
 

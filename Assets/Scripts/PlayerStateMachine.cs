@@ -4,6 +4,7 @@ using Unity.Cinemachine;
 
 public class PlayerStateMachine : MonoBehaviour
 {
+    public Vector3 Velocity { get; private set; }
     public Vector2 MoveInput { get; private set; }
     public CharacterController Controller { get; private set; }
     public Animator AnimationController { get; private set; }
@@ -16,6 +17,8 @@ public class PlayerStateMachine : MonoBehaviour
     protected PlayerBaseState currentState;
 
     PlayerInput playerInput;
+
+    float verticalVelocity;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -34,6 +37,8 @@ public class PlayerStateMachine : MonoBehaviour
     void Update()
     {
         currentState?.Tick(Time.deltaTime);
+
+        AddGravity();
     }
 
     void OnActionTriggered(InputAction.CallbackContext context)
@@ -47,11 +52,30 @@ public class PlayerStateMachine : MonoBehaviour
         {
             SwitchState(new PlayerTargetState(this));
         }
+
+        if (context.action.name == "Cancel" && context.canceled)
+        {
+            SwitchState(new PlayerMoveState(this));
+        }
     }
     public void SwitchState(PlayerBaseState newState)
     {
         if (currentState != null) currentState.Exit();
         currentState = newState;
         currentState.Enter();
+    }
+
+    void AddGravity()
+    {
+        if (verticalVelocity < 0 && Controller.isGrounded)
+        {
+            verticalVelocity = Physics.gravity.y * Time.deltaTime;
+        }
+        else
+        {
+            verticalVelocity += Physics.gravity.y * Time.deltaTime;
+        }
+
+        Velocity = Vector3.up * verticalVelocity;
     }
 }
