@@ -1946,7 +1946,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStateMachine
   <MoveSpeed>k__BackingField: 5
-  <TargetSpeed>k__BackingField: 3
+  <TargetSpeed>k__BackingField: 4
   <TurnSpeed>k__BackingField: 5
 --- !u!1 &5292718143136497593
 GameObject:

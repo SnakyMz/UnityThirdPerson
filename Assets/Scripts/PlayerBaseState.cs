@@ -18,7 +18,7 @@ public abstract class PlayerBaseState
         stateMachine.Controller.Move((motion + stateMachine.Velocity) * deltaTime);
     }
 
-    protected void FaceTarget()
+    protected void FaceTarget(float deltaTime)
     {
         if (stateMachine.Targeter.CurrentTarget == null) return;
 
@@ -26,6 +26,6 @@ public abstract class PlayerBaseState
         targetDirection.y = 0f;
 
         Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-        stateMachine.transform.rotation = Quaternion.Slerp(stateMachine.transform.rotation, targetRotation, stateMachine.TurnSpeed * Time.deltaTime);
+        stateMachine.transform.rotation = Quaternion.Slerp(stateMachine.transform.rotation, targetRotation, stateMachine.TurnSpeed * deltaTime);
     }
 }
