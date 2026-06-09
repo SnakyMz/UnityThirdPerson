@@ -9,6 +9,11 @@ public class PlayerTargetState : PlayerBaseState
 
     public override void Enter()
     {
+        if (!stateMachine.Targeter.SelectTarget())
+        {
+            stateMachine.SwitchState(new PlayerMoveState(stateMachine));
+            return;
+        }
         stateMachine.AnimationController.Play(TargetTreeHash);
     }
 
