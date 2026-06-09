@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Cinemachine;
 
 public class PlayerStateMachine : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class PlayerStateMachine : MonoBehaviour
     public CharacterController Controller { get; private set; }
     public Animator AnimationController { get; private set; }
     public Transform MainCamera { get; private set; }
+    public CinemachineTargetGroup TargetGroup { get; private set; }
+    public Targeter Targeter { get; private set; }
     [field: SerializeField] public float MoveSpeed { get; private set; }
     [field: SerializeField] public float TurnSpeed { get; private set; }
 
@@ -20,6 +23,8 @@ public class PlayerStateMachine : MonoBehaviour
         Controller = GetComponent<CharacterController>();
         AnimationController = GetComponent<Animator>();
         MainCamera = Camera.main.transform;
+        TargetGroup = GetComponentInChildren<CinemachineTargetGroup>();
+        Targeter = GetComponentInChildren<Targeter>();
         playerInput = GetComponent<PlayerInput>();
         playerInput.onActionTriggered += OnActionTriggered;
 
@@ -36,6 +41,11 @@ public class PlayerStateMachine : MonoBehaviour
         if (context.action.name == "Move")
         {
             MoveInput = context.ReadValue<Vector2>();
+        }
+
+        if (context.action.name == "Target" && context.performed)
+        {
+            SwitchState(new PlayerTargetState(this));
         }
     }
     public void SwitchState(PlayerBaseState newState)
