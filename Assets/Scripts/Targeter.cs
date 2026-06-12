@@ -8,11 +8,13 @@ public class Targeter : MonoBehaviour
     public Target CurrentTarget { get; private set; }
 
     PlayerStateMachine stateMachine;
+    Camera mainCamera;
     List<Target> targets = new List<Target>();
 
     void Awake()
     {
         stateMachine = GetComponentInParent<PlayerStateMachine>();
+        mainCamera = Camera.main;
     }
 
     void OnTriggerEnter(Collider other)
@@ -21,11 +23,6 @@ public class Targeter : MonoBehaviour
         {
             targets.Add(target);
             target.OnDestroyed += RemoveTarget;
-            if (CurrentTarget == null)
-            {
-                CurrentTarget = target;
-                targetGroup.AddMember(target.transform, 1, 2);
-            }
         }
     }
 
@@ -45,7 +42,31 @@ public class Targeter : MonoBehaviour
             return false;
         }
 
-        CurrentTarget = targets[0];
+        Target closestTarget = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (Target target in targets)
+        {
+            Vector2 viewPosition = mainCamera.WorldToViewportPoint(target.transform.position);
+
+            if (viewPosition.x < 0 || viewPosition.x > 1 || viewPosition.y < 0 || viewPosition.y > 1)
+            {
+                continue;
+            }
+
+            Vector2 toCenter = viewPosition - new Vector2(0.5f, 0.5f);
+            if (toCenter.magnitude < closestDistance)
+            {
+                closestDistance = toCenter.magnitude;
+                closestTarget = target;
+            }
+        }
+
+        if (closestTarget == null) return false;
+
+        CurrentTarget = closestTarget;
+        targetGroup.RemoveMember(CurrentTarget.transform);
+        targetGroup.AddMember(CurrentTarget.transform, 1f, 2f);
         return true;
     }
 

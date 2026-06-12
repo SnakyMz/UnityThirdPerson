@@ -4,22 +4,28 @@ using Unity.Cinemachine;
 
 public class PlayerStateMachine : MonoBehaviour
 {
+    [SerializeField] float drag = 0.4f;
     public Vector3 Velocity { get; private set; }
     public Vector2 MoveInput { get; private set; }
     public CharacterController Controller { get; private set; }
     public Animator AnimationController { get; private set; }
     public Transform MainCamera { get; private set; }
+    public bool IsAttacking { get; private set; }
     public CinemachineTargetGroup TargetGroup { get; private set; }
     public Targeter Targeter { get; private set; }
     [field: SerializeField] public float MoveSpeed { get; private set; }
     [field: SerializeField] public float TargetSpeed { get; private set; }
     [field: SerializeField] public float TurnSpeed { get; private set; }
+    [field: SerializeField] public Attack[] Attacks { get; private set; }
 
     protected PlayerBaseState currentState;
 
     PlayerInput playerInput;
 
     float verticalVelocity;
+    Vector3 impact = Vector3.zero;
+    Vector3 dampingVelocity;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -58,6 +64,19 @@ public class PlayerStateMachine : MonoBehaviour
         {
             SwitchState(new PlayerMoveState(this));
         }
+
+        if (context.action.name == "Attack")
+        {
+            if (context.performed)
+            {
+                IsAttacking = true;
+            }
+            else if (context.canceled)
+            {
+                IsAttacking = false;
+            }
+        }
+
     }
     public void SwitchState(PlayerBaseState newState)
     {
@@ -77,6 +96,12 @@ public class PlayerStateMachine : MonoBehaviour
             verticalVelocity += Physics.gravity.y * Time.deltaTime;
         }
 
-        Velocity = Vector3.up * verticalVelocity;
+        impact = Vector3.SmoothDamp(impact, Vector3.zero, ref dampingVelocity, drag);
+        Velocity = (Vector3.up * verticalVelocity) + impact;
+    }
+
+    public void AddImpact(Vector3 force)
+    {
+        impact += force;
     }
 }

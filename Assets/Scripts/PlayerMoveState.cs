@@ -13,6 +13,12 @@ public class PlayerMoveState : PlayerBaseState
 
     public override void Tick(float deltaTime)
     {
+        if (stateMachine.IsAttacking)
+        {
+            stateMachine.SwitchState(new PlayerAttackState(stateMachine, 0));
+            return;
+        }
+
         Vector3 movedirection = new Vector3(stateMachine.MoveInput.x, 0, stateMachine.MoveInput.y).normalized;
         Vector3 cameraDirection = Quaternion.AngleAxis(stateMachine.MainCamera.eulerAngles.y, Vector3.up) * movedirection;
 

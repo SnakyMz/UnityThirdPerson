@@ -19,9 +19,16 @@ public class PlayerTargetState : PlayerBaseState
 
     public override void Tick(float deltaTime)
     {
-        if (!stateMachine.Targeter.SelectTarget())
+        if (stateMachine.IsAttacking)
+        {
+            stateMachine.SwitchState(new PlayerAttackState(stateMachine, 0));
+            return;
+        }
+
+        if (stateMachine.Targeter.CurrentTarget == null)
         {
             stateMachine.SwitchState(new PlayerMoveState(stateMachine));
+            return;
         }
 
         float forwardMove = stateMachine.MoveInput.y;
@@ -33,7 +40,7 @@ public class PlayerTargetState : PlayerBaseState
         stateMachine.AnimationController.SetFloat(TargetForwardHash, forwardMove);
         stateMachine.AnimationController.SetFloat(TargetSideHash, sideMove);
         Move(targetDirection * stateMachine.TargetSpeed, deltaTime);
-        FaceTarget(Time.deltaTime);
+        FaceTarget();
     }
 
     public override void Exit()
