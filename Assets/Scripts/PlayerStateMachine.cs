@@ -4,6 +4,7 @@ using Unity.Cinemachine;
 
 public class PlayerStateMachine : MonoBehaviour
 {
+    [SerializeField] GameObject weaponHitbox;
     [SerializeField] float drag = 0.4f;
     public Vector3 Velocity { get; private set; }
     public Vector2 MoveInput { get; private set; }
@@ -103,5 +104,15 @@ public class PlayerStateMachine : MonoBehaviour
     public void AddImpact(Vector3 force)
     {
         impact += force;
+    }
+
+    public void EnableWeaponHitbox()
+    {
+        weaponHitbox.SetActive(true);
+    }
+
+    public void DisableWeaponHitbox()
+    {
+        weaponHitbox.SetActive(false);
     }
 }
