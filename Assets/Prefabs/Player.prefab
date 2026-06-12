@@ -1195,6 +1195,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6300121691617733430}
   - component: {fileID: 2025759727045880850}
+  - component: {fileID: 6818855901985376459}
+  - component: {fileID: 2161277211372096475}
   m_Layer: 0
   m_Name: WeaponHitbox
   m_TagString: Untagged
@@ -1232,7 +1234,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1240,6 +1242,47 @@ CapsuleCollider:
   m_Height: 1.03
   m_Direction: 0
   m_Center: {x: -0.33, y: -0.01, z: 0.04}
+--- !u!54 &6818855901985376459
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3764824396249990201}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &2161277211372096475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3764824396249990201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ab3efa29c9f93428224ec96ae1983e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Weapon
+  playerCollider: {fileID: 3645601288442260950}
+  damage: 10
 --- !u!1 &3807320425910012306
 GameObject:
   m_ObjectHideFlags: 0
@@ -2013,18 +2056,21 @@ MonoBehaviour:
     <ComboAttackTime>k__BackingField: 0.6
     <ForceTime>k__BackingField: 0.35
     <Force>k__BackingField: 15
+    <Damage>k__BackingField: 10
   - <AnimationName>k__BackingField: Attack2
     <TransitionDuration>k__BackingField: 0.1
     <ComboStateIndex>k__BackingField: 2
     <ComboAttackTime>k__BackingField: 0.5
     <ForceTime>k__BackingField: 0.35
     <Force>k__BackingField: 15
+    <Damage>k__BackingField: 15
   - <AnimationName>k__BackingField: Attack3
     <TransitionDuration>k__BackingField: 0.2
     <ComboStateIndex>k__BackingField: -1
     <ComboAttackTime>k__BackingField: 0
     <ForceTime>k__BackingField: 0.35
     <Force>k__BackingField: 20
+    <Damage>k__BackingField: 20
 --- !u!1 &5292718143136497593
 GameObject:
   m_ObjectHideFlags: 0

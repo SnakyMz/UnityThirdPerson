@@ -14,7 +14,7 @@ public class PlayerTargetState : PlayerBaseState
             stateMachine.SwitchState(new PlayerMoveState(stateMachine));
             return;
         }
-        stateMachine.AnimationController.Play(TargetTreeHash);
+        stateMachine.AnimationController.CrossFadeInFixedTime(TargetTreeHash, 0.1f);
     }
 
     public override void Tick(float deltaTime)

@@ -4,7 +4,7 @@ using Unity.Cinemachine;
 
 public class PlayerStateMachine : MonoBehaviour
 {
-    [SerializeField] GameObject weaponHitbox;
+    [SerializeField] public GameObject weaponHitbox;
     [SerializeField] float drag = 0.4f;
     public Vector3 Velocity { get; private set; }
     public Vector2 MoveInput { get; private set; }
@@ -14,6 +14,7 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsAttacking { get; private set; }
     public CinemachineTargetGroup TargetGroup { get; private set; }
     public Targeter Targeter { get; private set; }
+    public Weapon Weapon { get; private set; }
     [field: SerializeField] public float MoveSpeed { get; private set; }
     [field: SerializeField] public float TargetSpeed { get; private set; }
     [field: SerializeField] public float TurnSpeed { get; private set; }
@@ -31,6 +32,7 @@ public class PlayerStateMachine : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Weapon = weaponHitbox.GetComponent<Weapon>();
         Controller = GetComponent<CharacterController>();
         AnimationController = GetComponent<Animator>();
         MainCamera = Camera.main.transform;

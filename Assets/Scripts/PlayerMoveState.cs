@@ -8,7 +8,7 @@ public class PlayerMoveState : PlayerBaseState
 
     public override void Enter()
     {
-        stateMachine.AnimationController.Play(MoveTreeHash);
+        stateMachine.AnimationController.CrossFadeInFixedTime(MoveTreeHash, 0.1f);
     }
 
     public override void Tick(float deltaTime)

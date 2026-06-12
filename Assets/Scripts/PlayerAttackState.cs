@@ -4,7 +4,6 @@ using UnityEngine;
 public class PlayerAttackState : PlayerBaseState
 {
     Attack attack;
-    float previousFrameTime;
 
     bool forceApplied = false;
 
@@ -15,6 +14,7 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void Enter()
     {
+        stateMachine.Weapon.SetAttackDamage(attack.Damage);
         stateMachine.AnimationController.CrossFadeInFixedTime(attack.AnimationName, attack.TransitionDuration);
     }
 
@@ -43,8 +43,6 @@ public class PlayerAttackState : PlayerBaseState
             else
                 stateMachine.SwitchState(new PlayerMoveState(stateMachine));
         }
-
-        previousFrameTime = normalizedTime;
     }
 
     public override void Exit()
