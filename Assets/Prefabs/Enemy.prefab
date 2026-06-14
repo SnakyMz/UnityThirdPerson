@@ -1667,9 +1667,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7221299763345636612}
+  - component: {fileID: 6761581025780219037}
+  - component: {fileID: 642832980246105858}
   - component: {fileID: 3225274604519197819}
   - component: {fileID: 8948894660160905944}
-  - component: {fileID: 642832980246105858}
   - component: {fileID: 3515462728731695024}
   m_Layer: 0
   m_Name: Enemy
@@ -1697,31 +1698,28 @@ Transform:
   - {fileID: 1368430278007924903}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3225274604519197819
-MonoBehaviour:
+--- !u!95 &6761581025780219037
+Animator:
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6450274511869399057}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f61df9e98eb73684d85698c701765777, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Target
---- !u!114 &8948894660160905944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6450274511869399057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d6f10f415ccb7a4b90d0dd8deb5a1c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 100
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 558a091b65d9f784eb4c0ce546943d17, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!143 &642832980246105858
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1747,6 +1745,31 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.03
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &3225274604519197819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6450274511869399057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f61df9e98eb73684d85698c701765777, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Target
+--- !u!114 &8948894660160905944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6450274511869399057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d6f10f415ccb7a4b90d0dd8deb5a1c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  maxHealth: 100
 --- !u!114 &3515462728731695024
 MonoBehaviour:
   m_ObjectHideFlags: 0
