@@ -36,7 +36,10 @@ public class EnemyStateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        currentState?.Tick(Time.deltaTime);
+
         AddGravity();
+        Debug.Log(currentState);
     }
 
     public void SwitchState(EnemyBaseState newState)
