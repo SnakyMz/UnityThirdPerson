@@ -1668,10 +1668,11 @@ GameObject:
   m_Component:
   - component: {fileID: 7221299763345636612}
   - component: {fileID: 6761581025780219037}
+  - component: {fileID: 6273743238334413758}
   - component: {fileID: 642832980246105858}
+  - component: {fileID: 3515462728731695024}
   - component: {fileID: 3225274604519197819}
   - component: {fileID: 8948894660160905944}
-  - component: {fileID: 3515462728731695024}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -1720,6 +1721,28 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!195 &6273743238334413758
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6450274511869399057}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 1
+  m_Acceleration: 0
+  avoidancePriority: 50
+  m_AngularSpeed: 0
+  m_StoppingDistance: 1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!143 &642832980246105858
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1745,6 +1768,21 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.03
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &3515462728731695024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6450274511869399057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a53189bdd9adbd645942213ecb57e9e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
+  drag: 0.4
+  <detectionRange>k__BackingField: 10
+  <movementSpeed>k__BackingField: 4
 --- !u!114 &3225274604519197819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1770,18 +1808,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 100
---- !u!114 &3515462728731695024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6450274511869399057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a53189bdd9adbd645942213ecb57e9e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
 --- !u!1 &6746043161914602455
 GameObject:
   m_ObjectHideFlags: 0

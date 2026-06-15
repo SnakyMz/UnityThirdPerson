@@ -25,7 +25,7 @@ public abstract class EnemyBaseState
 
     protected bool IsInChaseRange()
     {
-        Vector3 distance = stateMachine.Player.transform.position - stateMachine.transform.position;
-        return distance.magnitude <= stateMachine.detectionRange;
+        float sqrDistance = (stateMachine.Player.transform.position - stateMachine.transform.position).sqrMagnitude;
+        return sqrDistance <= stateMachine.DetectionRange * stateMachine.DetectionRange;
     }
 }

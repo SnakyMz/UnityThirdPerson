@@ -1,14 +1,18 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+using UnityEditor.AI;
+using UnityEngine.AI;
 
 public class EnemyStateMachine : MonoBehaviour
 {
     [SerializeField] float drag = 0.4f;
-    [field: SerializeField] public float detectionRange { get; private set; } = 10f;
+    [field: SerializeField] public float DetectionRange { get; private set; } = 10f;
+    [field: SerializeField] public float MovementSpeed { get; private set; } = 4f;
     public Animator Animator { get; private set; }
     public GameObject Player { get; private set; }
     public CharacterController Controller { get; private set; }
+    public NavMeshAgent Agent { get; private set; }
     public Vector3 Velocity { get; private set; }
     float verticalVelocity;
     Vector3 dampingVelocity;
@@ -19,16 +23,20 @@ public class EnemyStateMachine : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Agent = GetComponent<NavMeshAgent>();
         Controller = GetComponent<CharacterController>();
-        Player = FindAnyObjectByType<PlayerStateMachine>().gameObject;
+        Player = FindFirstObjectByType<PlayerStateMachine>().gameObject;
         Animator = GetComponent<Animator>();
         SwitchState(new EnemyMoveState(this));
+
+        Agent.updatePosition = false;
+        Agent.updateRotation = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        AddGravity();
     }
 
     public void SwitchState(EnemyBaseState newState)
@@ -41,7 +49,7 @@ public class EnemyStateMachine : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectionRange);
+        Gizmos.DrawWireSphere(transform.position, DetectionRange);
     }
 
     void AddGravity()
