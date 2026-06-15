@@ -18,10 +18,12 @@ public class Health : MonoBehaviour
 
     public void DealDamage(int damage)
     {
-        if (health <= 0) OnDie?.Invoke();
+        if (health == 0) return;
+
         health = Mathf.Max(health - damage, 0);
 
         OnDamage?.Invoke();
+        if (health <= 0) OnDie?.Invoke();
 
         Debug.Log("Gameobject: " + gameObject.name + ", Health: " + health);
     }

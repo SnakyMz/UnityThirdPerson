@@ -1,16 +1,22 @@
 using UnityEngine;
 
-public class PlayerDeathState : MonoBehaviour
+public class PlayerDeathState : PlayerBaseState
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public PlayerDeathState(PlayerStateMachine stateMachine) : base(stateMachine) { }
+
+    public override void Enter()
     {
-        
+        stateMachine.Ragdoll.ToggleRagdoll(true);
+        stateMachine.Weapon.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Tick(float deltaTime)
     {
-        
+
+    }
+
+    public override void Exit()
+    {
+
     }
 }

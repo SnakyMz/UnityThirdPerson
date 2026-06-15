@@ -15,6 +15,7 @@ public class PlayerStateMachine : MonoBehaviour
     public Targeter Targeter { get; private set; }
     public Weapon Weapon { get; private set; }
     public ForceReceiver ForceReceiver { get; private set; }
+    public Ragdoll Ragdoll { get; private set; }
     [field: SerializeField] public Health Health { get; private set; }
     [field: SerializeField] public float MoveSpeed { get; private set; }
     [field: SerializeField] public float TargetSpeed { get; private set; }
@@ -35,6 +36,7 @@ public class PlayerStateMachine : MonoBehaviour
         TargetGroup = GetComponentInChildren<CinemachineTargetGroup>();
         Targeter = GetComponentInChildren<Targeter>();
         ForceReceiver = GetComponent<ForceReceiver>();
+        Ragdoll = GetComponent<Ragdoll>();
         playerInput = GetComponent<PlayerInput>();
         playerInput.onActionTriggered += OnActionTriggered;
 
@@ -98,15 +100,22 @@ public class PlayerStateMachine : MonoBehaviour
     void OnEnable()
     {
         Health.OnDamage += HandleDamage;
+        Health.OnDie += HandleDeath;
     }
 
     void OnDisable()
     {
         Health.OnDamage -= HandleDamage;
+        Health.OnDie -= HandleDeath;
     }
 
     void HandleDamage()
     {
         SwitchState(new PlayerImpactState(this));
+    }
+
+    void HandleDeath()
+    {
+        SwitchState(new PlayerDeathState(this));
     }
 }
