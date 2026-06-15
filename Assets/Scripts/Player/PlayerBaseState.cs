@@ -31,6 +31,5 @@ public abstract class PlayerBaseState
         targetDirection.y = 0f;
 
         stateMachine.transform.rotation = Quaternion.LookRotation(targetDirection);
-
     }
 }

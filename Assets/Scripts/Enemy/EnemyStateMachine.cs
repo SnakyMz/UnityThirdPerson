@@ -1,19 +1,22 @@
-using System;
-using UnityEditor;
 using UnityEngine;
-using UnityEditor.AI;
 using UnityEngine.AI;
 
 public class EnemyStateMachine : MonoBehaviour
 {
     [SerializeField] float drag = 0.4f;
+    [SerializeField] public int attackDamage = 10;
+    [SerializeField] public GameObject weaponHitbox;
     [field: SerializeField] public float DetectionRange { get; private set; } = 10f;
-    [field: SerializeField] public float MovementSpeed { get; private set; } = 4f;
+    [field: SerializeField] public float MovementSpeed { get; private set; } = 10f;
+    [field: SerializeField] public float AttackRange { get; private set; } = 2f;
+    [field: SerializeField] public float AttackDamage { get; private set; } = 10f;
     public Animator Animator { get; private set; }
     public GameObject Player { get; private set; }
     public CharacterController Controller { get; private set; }
     public NavMeshAgent Agent { get; private set; }
     public Vector3 Velocity { get; private set; }
+    public Weapon Weapon { get; private set; }
+
     float verticalVelocity;
     Vector3 dampingVelocity;
     Vector3 impact;
@@ -23,6 +26,7 @@ public class EnemyStateMachine : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Weapon = weaponHitbox.GetComponent<Weapon>();
         Agent = GetComponent<NavMeshAgent>();
         Controller = GetComponent<CharacterController>();
         Player = FindFirstObjectByType<PlayerStateMachine>().gameObject;
@@ -39,7 +43,6 @@ public class EnemyStateMachine : MonoBehaviour
         currentState?.Tick(Time.deltaTime);
 
         AddGravity();
-        Debug.Log(currentState);
     }
 
     public void SwitchState(EnemyBaseState newState)
@@ -73,5 +76,15 @@ public class EnemyStateMachine : MonoBehaviour
     public void AddImpact(Vector3 force)
     {
         impact += force;
+    }
+
+    public void EnableWeaponHitbox()
+    {
+        weaponHitbox.SetActive(true);
+    }
+
+    public void DisableWeaponHitbox()
+    {
+        weaponHitbox.SetActive(false);
     }
 }

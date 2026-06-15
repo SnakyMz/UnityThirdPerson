@@ -23,6 +23,14 @@ public abstract class EnemyBaseState
         stateMachine.Controller.Move((motion + stateMachine.Velocity) * deltaTime);
     }
 
+    protected void FacePlayer()
+    {
+        Vector3 targetDirection = stateMachine.Player.transform.position - stateMachine.transform.position;
+        targetDirection.y = 0f;
+
+        stateMachine.transform.rotation = Quaternion.LookRotation(targetDirection);
+    }
+
     protected bool IsInChaseRange()
     {
         float sqrDistance = (stateMachine.Player.transform.position - stateMachine.transform.position).sqrMagnitude;

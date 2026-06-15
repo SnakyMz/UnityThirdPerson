@@ -17,6 +17,6 @@ public class Health : MonoBehaviour
         if (health <= 0) return;
         health = Mathf.Max(health - damage, 0);
 
-        Debug.Log(health);
+        Debug.Log("Gameobject: " + gameObject.name + ", Health: " + health);
     }
 }
