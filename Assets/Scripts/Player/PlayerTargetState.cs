@@ -24,6 +24,10 @@ public class PlayerTargetState : PlayerBaseState
             stateMachine.SwitchState(new PlayerAttackState(stateMachine, 0));
             return;
         }
+        else if (stateMachine.IsBlocking)
+        {
+            stateMachine.SwitchState(new PlayerBlockState(stateMachine));
+        }
 
         if (stateMachine.Targeter.CurrentTarget == null)
         {

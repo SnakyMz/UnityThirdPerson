@@ -11,6 +11,7 @@ public class PlayerStateMachine : MonoBehaviour
     public Animator AnimationController { get; private set; }
     public Transform MainCamera { get; private set; }
     public bool IsAttacking { get; private set; }
+    public bool IsBlocking { get; private set; }
     public CinemachineTargetGroup TargetGroup { get; private set; }
     public Targeter Targeter { get; private set; }
     public Weapon Weapon { get; private set; }
@@ -76,6 +77,18 @@ public class PlayerStateMachine : MonoBehaviour
             else if (context.canceled)
             {
                 IsAttacking = false;
+            }
+        }
+
+        if (context.action.name == "Block")
+        {
+            if (context.performed)
+            {
+                IsBlocking = true;
+            }
+            else if (context.canceled)
+            {
+                IsBlocking = false;
             }
         }
 

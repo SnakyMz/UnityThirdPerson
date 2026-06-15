@@ -5,6 +5,8 @@ public class Health : MonoBehaviour
 {
     [SerializeField] int maxHealth = 100;
 
+    bool isInvernuable = false;
+
     int health;
 
     public event Action OnDamage;
@@ -16,9 +18,14 @@ public class Health : MonoBehaviour
         health = maxHealth;
     }
 
+    public void SetVulnerability(bool newState)
+    {
+        isInvernuable = newState;
+    }
+
     public void DealDamage(int damage)
     {
-        if (health == 0) return;
+        if (health == 0 || isInvernuable) return;
 
         health = Mathf.Max(health - damage, 0);
 
