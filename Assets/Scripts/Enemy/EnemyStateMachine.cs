@@ -3,23 +3,20 @@ using UnityEngine.AI;
 
 public class EnemyStateMachine : MonoBehaviour
 {
-    [SerializeField] float drag = 0.4f;
-    [SerializeField] public int attackDamage = 10;
+    [SerializeField] public int attackDamage = 20;
+    [SerializeField] public int knockback = 20;
     [SerializeField] public GameObject weaponHitbox;
     [field: SerializeField] public float DetectionRange { get; private set; } = 10f;
     [field: SerializeField] public float MovementSpeed { get; private set; } = 10f;
     [field: SerializeField] public float AttackRange { get; private set; } = 2f;
-    [field: SerializeField] public float AttackDamage { get; private set; } = 10f;
+    [field: SerializeField] public Health Health { get; private set; }
     public Animator Animator { get; private set; }
     public GameObject Player { get; private set; }
     public CharacterController Controller { get; private set; }
     public NavMeshAgent Agent { get; private set; }
     public Vector3 Velocity { get; private set; }
     public Weapon Weapon { get; private set; }
-
-    float verticalVelocity;
-    Vector3 dampingVelocity;
-    Vector3 impact;
+    public ForceReceiver ForceReceiver { get; private set; }
 
     protected EnemyBaseState currentState;
 
@@ -30,6 +27,7 @@ public class EnemyStateMachine : MonoBehaviour
         Agent = GetComponent<NavMeshAgent>();
         Controller = GetComponent<CharacterController>();
         Player = FindFirstObjectByType<PlayerStateMachine>().gameObject;
+        ForceReceiver = GetComponent<ForceReceiver>();
         Animator = GetComponent<Animator>();
         SwitchState(new EnemyMoveState(this));
 
@@ -42,7 +40,7 @@ public class EnemyStateMachine : MonoBehaviour
     {
         currentState?.Tick(Time.deltaTime);
 
-        AddGravity();
+        Velocity = ForceReceiver.AddGravity();
     }
 
     public void SwitchState(EnemyBaseState newState)
@@ -58,26 +56,6 @@ public class EnemyStateMachine : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, DetectionRange);
     }
 
-    void AddGravity()
-    {
-        if (verticalVelocity < 0 && Controller.isGrounded)
-        {
-            verticalVelocity = Physics.gravity.y * Time.deltaTime;
-        }
-        else
-        {
-            verticalVelocity += Physics.gravity.y * Time.deltaTime;
-        }
-
-        impact = Vector3.SmoothDamp(impact, Vector3.zero, ref dampingVelocity, drag);
-        Velocity = (Vector3.up * verticalVelocity) + impact;
-    }
-
-    public void AddImpact(Vector3 force)
-    {
-        impact += force;
-    }
-
     public void EnableWeaponHitbox()
     {
         weaponHitbox.SetActive(true);
@@ -86,5 +64,20 @@ public class EnemyStateMachine : MonoBehaviour
     public void DisableWeaponHitbox()
     {
         weaponHitbox.SetActive(false);
+    }
+
+    void OnEnable()
+    {
+        Health.OnDamage += HandleDamage;
+    }
+
+    void OnDisable()
+    {
+        Health.OnDamage -= HandleDamage;
+    }
+
+    void HandleDamage()
+    {
+        SwitchState(new EnemyImpactState(this));
     }
 }

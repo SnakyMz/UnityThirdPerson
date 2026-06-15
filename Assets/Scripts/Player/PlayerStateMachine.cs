@@ -5,7 +5,6 @@ using Unity.Cinemachine;
 public class PlayerStateMachine : MonoBehaviour
 {
     [SerializeField] public GameObject weaponHitbox;
-    [SerializeField] float drag = 0.4f;
     public Vector3 Velocity { get; private set; }
     public Vector2 MoveInput { get; private set; }
     public CharacterController Controller { get; private set; }
@@ -15,6 +14,8 @@ public class PlayerStateMachine : MonoBehaviour
     public CinemachineTargetGroup TargetGroup { get; private set; }
     public Targeter Targeter { get; private set; }
     public Weapon Weapon { get; private set; }
+    public ForceReceiver ForceReceiver { get; private set; }
+    [field: SerializeField] public Health Health { get; private set; }
     [field: SerializeField] public float MoveSpeed { get; private set; }
     [field: SerializeField] public float TargetSpeed { get; private set; }
     [field: SerializeField] public float TurnSpeed { get; private set; }
@@ -23,11 +24,6 @@ public class PlayerStateMachine : MonoBehaviour
     protected PlayerBaseState currentState;
 
     PlayerInput playerInput;
-
-    float verticalVelocity;
-    Vector3 impact = Vector3.zero;
-    Vector3 dampingVelocity;
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,6 +34,7 @@ public class PlayerStateMachine : MonoBehaviour
         MainCamera = Camera.main.transform;
         TargetGroup = GetComponentInChildren<CinemachineTargetGroup>();
         Targeter = GetComponentInChildren<Targeter>();
+        ForceReceiver = GetComponent<ForceReceiver>();
         playerInput = GetComponent<PlayerInput>();
         playerInput.onActionTriggered += OnActionTriggered;
 
@@ -48,7 +45,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         currentState?.Tick(Time.deltaTime);
 
-        AddGravity();
+        Velocity = ForceReceiver.AddGravity();
     }
 
     void OnActionTriggered(InputAction.CallbackContext context)
@@ -88,26 +85,6 @@ public class PlayerStateMachine : MonoBehaviour
         currentState.Enter();
     }
 
-    void AddGravity()
-    {
-        if (verticalVelocity < 0 && Controller.isGrounded)
-        {
-            verticalVelocity = Physics.gravity.y * Time.deltaTime;
-        }
-        else
-        {
-            verticalVelocity += Physics.gravity.y * Time.deltaTime;
-        }
-
-        impact = Vector3.SmoothDamp(impact, Vector3.zero, ref dampingVelocity, drag);
-        Velocity = (Vector3.up * verticalVelocity) + impact;
-    }
-
-    public void AddImpact(Vector3 force)
-    {
-        impact += force;
-    }
-
     public void EnableWeaponHitbox()
     {
         weaponHitbox.SetActive(true);
@@ -116,5 +93,20 @@ public class PlayerStateMachine : MonoBehaviour
     public void DisableWeaponHitbox()
     {
         weaponHitbox.SetActive(false);
+    }
+
+    void OnEnable()
+    {
+        Health.OnDamage += HandleDamage;
+    }
+
+    void OnDisable()
+    {
+        Health.OnDamage -= HandleDamage;
+    }
+
+    void HandleDamage()
+    {
+        SwitchState(new PlayerImpactState(this));
     }
 }

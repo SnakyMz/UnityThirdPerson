@@ -1,3 +1,4 @@
+using System.Runtime.Remoting.Messaging;
 using UnityEngine;
 
 public abstract class PlayerBaseState
@@ -31,5 +32,13 @@ public abstract class PlayerBaseState
         targetDirection.y = 0f;
 
         stateMachine.transform.rotation = Quaternion.LookRotation(targetDirection);
+    }
+
+    protected void ReturnToLocomotion()
+    {
+        if (stateMachine.Targeter.CurrentTarget != null)
+            stateMachine.SwitchState(new PlayerTargetState(stateMachine));
+        else
+            stateMachine.SwitchState(new PlayerMoveState(stateMachine));
     }
 }

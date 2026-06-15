@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4ab3efa29c9f93428224ec96ae1983e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
-  playerCollider: {fileID: 642832980246105858}
+  gameObjectCollider: {fileID: 642832980246105858}
 --- !u!1 &471395022865455641
 GameObject:
   m_ObjectHideFlags: 0
@@ -1861,6 +1861,7 @@ GameObject:
   - component: {fileID: 3515462728731695024}
   - component: {fileID: 3225274604519197819}
   - component: {fileID: 8948894660160905944}
+  - component: {fileID: 7308532645776466205}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -1968,13 +1969,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a53189bdd9adbd645942213ecb57e9e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
-  drag: 0.4
-  attackDamage: 10
+  attackDamage: 20
+  knockback: 10
   weaponHitbox: {fileID: 226116898142786916}
   <DetectionRange>k__BackingField: 10
   <MovementSpeed>k__BackingField: 6
   <AttackRange>k__BackingField: 1.5
-  <AttackDamage>k__BackingField: 20
+  <Health>k__BackingField: {fileID: 8948894660160905944}
 --- !u!114 &3225274604519197819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2000,6 +2001,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 100
+--- !u!114 &7308532645776466205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6450274511869399057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0cbc51d127fd4b4f9534a22fb2522ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ForceReceiver
+  drag: 0.4
 --- !u!1 &6746043161914602455
 GameObject:
   m_ObjectHideFlags: 0

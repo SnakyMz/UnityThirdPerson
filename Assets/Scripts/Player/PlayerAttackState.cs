@@ -14,7 +14,7 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void Enter()
     {
-        stateMachine.Weapon.SetAttackDamage(attack.Damage);
+        stateMachine.Weapon.SetAttack(attack.Damage, attack.Knockback);
         stateMachine.AnimationController.CrossFadeInFixedTime(attack.AnimationName, attack.TransitionDuration);
     }
 
@@ -38,10 +38,7 @@ public class PlayerAttackState : PlayerBaseState
         }
         else
         {
-            if (stateMachine.Targeter.CurrentTarget != null)
-                stateMachine.SwitchState(new PlayerTargetState(stateMachine));
-            else
-                stateMachine.SwitchState(new PlayerMoveState(stateMachine));
+            ReturnToLocomotion();
         }
     }
 
@@ -63,7 +60,7 @@ public class PlayerAttackState : PlayerBaseState
     {
         if (forceApplied) return;
 
-        stateMachine.AddImpact(stateMachine.transform.forward * attack.Force);
+        stateMachine.ForceReceiver.AddImpact(stateMachine.transform.forward * attack.Force);
 
         forceApplied = true;
     }
