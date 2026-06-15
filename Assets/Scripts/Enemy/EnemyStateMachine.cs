@@ -12,7 +12,7 @@ public class EnemyStateMachine : MonoBehaviour
     [field: SerializeField] public Health Health { get; private set; }
     [field: SerializeField] public Target Target { get; private set; }
     public Animator Animator { get; private set; }
-    public GameObject Player { get; private set; }
+    public PlayerStateMachine Player { get; private set; }
     public CharacterController Controller { get; private set; }
     public NavMeshAgent Agent { get; private set; }
     public Vector3 Velocity { get; private set; }
@@ -28,7 +28,7 @@ public class EnemyStateMachine : MonoBehaviour
         Weapon = weaponHitbox.GetComponent<Weapon>();
         Agent = GetComponent<NavMeshAgent>();
         Controller = GetComponent<CharacterController>();
-        Player = FindFirstObjectByType<PlayerStateMachine>().gameObject;
+        Player = FindFirstObjectByType<PlayerStateMachine>();
         ForceReceiver = GetComponent<ForceReceiver>();
         Animator = GetComponent<Animator>();
         Ragdoll = GetComponent<Ragdoll>();

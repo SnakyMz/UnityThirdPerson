@@ -2701,7 +2701,7 @@ GameObject:
   - component: {fileID: 8948894660160905944}
   - component: {fileID: 7308532645776466205}
   - component: {fileID: 7656140903868060617}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2736,7 +2736,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6450274511869399057}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: cb78c43d836087b4b87e09ee6b8324b3, type: 3}
+  m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 558a091b65d9f784eb4c0ce546943d17, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -2744,15 +2744,7 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
-    'mixamorig:LeftHandThumb2'\n\tTransform 'mixamorig:LeftHandIndex1'\n\tTransform
-    'mixamorig:LeftHandPinky2'\n\tTransform 'mixamorig:RightHandRing2'\n\tTransform
-    'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform 'mixamorig:LeftHandThumb3'\n\tTransform
-    'mixamorig:RightArm'\n\tand more ...\n\tFrom animation clip 'Idle'\n\tFrom animation
-    clip 'Walk'\n\tFrom animation clip 'Run'\n\tFrom animation clip 'Attack'\n\tFrom
-    animation clip 'Impact'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -2820,7 +2812,7 @@ MonoBehaviour:
   knockback: 10
   weaponHitbox: {fileID: 226116898142786916}
   <DetectionRange>k__BackingField: 10
-  <MovementSpeed>k__BackingField: 6
+  <MovementSpeed>k__BackingField: 8
   <AttackRange>k__BackingField: 1.5
   <Health>k__BackingField: {fileID: 8948894660160905944}
   <Target>k__BackingField: {fileID: 3225274604519197819}

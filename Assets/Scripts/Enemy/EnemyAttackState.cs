@@ -13,10 +13,12 @@ public class EnemyAttackState : EnemyBaseState
 
     public override void Tick(float deltaTime)
     {
-        if (GetNormalizedTime() > 1f)
+        if (GetNormalizedTime() > 1f || !stateMachine.Player.Health.IsAlive())
         {
             stateMachine.SwitchState(new EnemyMoveState(stateMachine));
         }
+
+        FacePlayer();
     }
 
     public override void Exit()

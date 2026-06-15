@@ -34,4 +34,9 @@ public class Health : MonoBehaviour
 
         Debug.Log("Gameobject: " + gameObject.name + ", Health: " + health);
     }
+
+    public bool IsAlive()
+    {
+        return health <= 0 ? false : true;
+    }
 }

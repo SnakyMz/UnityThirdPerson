@@ -89,8 +89,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineGroupFraming
   FramingMode: 2
-  FramingSize: 0.7
-  CenterOffset: {x: 0, y: -0.7}
+  FramingSize: 1
+  CenterOffset: {x: 0, y: -0.4}
   Damping: 1
   SizeAdjustment: 2
   LateralAdjustment: 0
@@ -1466,7 +1466,7 @@ MonoBehaviour:
   UpdateMethod: 2
   Targets:
   - Object: {fileID: 8252152536589479503}
-    Weight: 0.5
+    Weight: 1
     Radius: 2
   m_LegacyTargets: []
 --- !u!1 &3881769221163201138
@@ -2224,7 +2224,7 @@ GameObject:
   - component: {fileID: 6924631916351577210}
   - component: {fileID: 5630986601795973246}
   - component: {fileID: 5513096232757796884}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2263,7 +2263,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5233530844437650473}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 9f93f6cd578b26e4aa97b85d2772547d, type: 3}
+  m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 077c6403ffc4a7746ad74868e20cd83a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -2271,17 +2271,7 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
-    'mixamorig:LeftHandThumb2'\n\tTransform 'mixamorig:LeftHandIndex1'\n\tTransform
-    'mixamorig:LeftHandPinky2'\n\tTransform 'mixamorig:RightHandRing2'\n\tTransform
-    'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform 'mixamorig:LeftHandThumb3'\n\tTransform
-    'mixamorig:RightArm'\n\tand more ...\n\tFrom animation clip 'Idle'\n\tFrom animation
-    clip 'Walking'\n\tFrom animation clip 'Running'\n\tFrom animation clip 'Idle'\n\tFrom
-    animation clip 'Walking'\n\tFrom animation clip 'Running'\n\tFrom animation clip
-    'WalkingBack'\n\tFrom animation clip 'RightWalk'\n\tFrom animation clip 'RightRun'\n\tFrom
-    animation clip 'LeftWalk'\n\tand more ..."
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
