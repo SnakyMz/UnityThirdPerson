@@ -18,6 +18,7 @@ public class PlayerStateMachine : MonoBehaviour
     public Weapon Weapon { get; private set; }
     public ForceReceiver ForceReceiver { get; private set; }
     public Ragdoll Ragdoll { get; private set; }
+    [field: SerializeField] public LedgeDetector LedgeDetector { get; private set; }
     [field: SerializeField] public Health Health { get; private set; }
     [field: SerializeField] public float MoveSpeed { get; private set; }
     [field: SerializeField] public float TargetSpeed { get; private set; }
