@@ -5,15 +5,20 @@ public class PlayerHangState : PlayerBaseState
 {
     readonly int hangHash = Animator.StringToHash("Hanging");
 
+    Vector3 closestPoint;
     Vector3 ledgeForward;
 
-    public PlayerHangState(PlayerStateMachine stateMachine, Vector3 ledgeForward) : base(stateMachine)
+    public PlayerHangState(PlayerStateMachine stateMachine, Vector3 closestPoint, Vector3 ledgeForward) : base(stateMachine)
     {
+        this.closestPoint = closestPoint;
         this.ledgeForward = ledgeForward;
     }
 
     public override void Enter()
     {
+        stateMachine.Controller.enabled = false;
+        stateMachine.transform.position = closestPoint - (stateMachine.LedgeDetector.transform.position - stateMachine.transform.position);
+        stateMachine.Controller.enabled = true;
         stateMachine.transform.rotation = Quaternion.LookRotation(ledgeForward, Vector3.up);
         stateMachine.AnimationController.CrossFadeInFixedTime(hangHash, 0.1f);
     }

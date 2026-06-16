@@ -36,6 +36,9 @@ public class PlayerStateMachine : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         Weapon = weaponHitbox.GetComponent<Weapon>();
         Controller = GetComponent<CharacterController>();
         AnimationController = GetComponent<Animator>();

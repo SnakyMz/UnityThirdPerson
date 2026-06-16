@@ -14,7 +14,9 @@ public class PlayerClimbState : PlayerBaseState
 
     public override void Tick(float deltaTime)
     {
-        if (stateMachine.AnimationController.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) return;
+        AnimatorStateInfo currentInfo = stateMachine.AnimationController.GetCurrentAnimatorStateInfo(0);
+
+        if (currentInfo.normalizedTime < 1f || !currentInfo.IsTag("Climbing")) return;
 
         stateMachine.Controller.enabled = false;
         stateMachine.transform.Translate(offset, Space.Self);
