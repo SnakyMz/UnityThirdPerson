@@ -34,8 +34,8 @@ public class PlayerFallState : PlayerBaseState
         stateMachine.LedgeDetector.OnLedgeDetect -= HandleLedge;
     }
 
-    void HandleLedge(Vector3 closestPoint, Vector3 ledgeForward)
+    void HandleLedge(Vector3 ledgeForward)
     {
-        stateMachine.SwitchState(new PlayerHangState(stateMachine, closestPoint, ledgeForward));
+        stateMachine.SwitchState(new PlayerHangState(stateMachine, ledgeForward));
     }
 }

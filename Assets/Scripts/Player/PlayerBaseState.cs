@@ -37,8 +37,14 @@ public abstract class PlayerBaseState
     protected void ReturnToLocomotion()
     {
         if (stateMachine.Targeter.CurrentTarget != null)
+        {
+            stateMachine.IsTargetting = true;
             stateMachine.SwitchState(new PlayerTargetState(stateMachine));
+        }
         else
+        {
+            stateMachine.IsTargetting = false;
             stateMachine.SwitchState(new PlayerMoveState(stateMachine));
+        }
     }
 }

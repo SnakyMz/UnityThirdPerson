@@ -5,6 +5,7 @@ using Unity.Cinemachine;
 public class PlayerStateMachine : MonoBehaviour
 {
     [SerializeField] public GameObject weaponHitbox;
+    public bool IsTargetting = false;
     public Vector3 Velocity { get; private set; }
     public Vector2 MoveInput { get; private set; }
     public Vector2 DodgeInput { get; private set; }
@@ -65,12 +66,16 @@ public class PlayerStateMachine : MonoBehaviour
 
         if (context.action.name == "Target" && context.performed)
         {
-            SwitchState(new PlayerTargetState(this));
-        }
-
-        if (context.action.name == "Cancel" && context.canceled)
-        {
-            SwitchState(new PlayerMoveState(this));
+            if (!IsTargetting)
+            {
+                SwitchState(new PlayerTargetState(this));
+                IsTargetting = true;
+            }
+            else
+            {
+                SwitchState(new PlayerMoveState(this));
+                IsTargetting = false;
+            }
         }
 
         if (context.action.name == "Attack")

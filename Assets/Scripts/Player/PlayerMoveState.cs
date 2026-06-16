@@ -4,11 +4,21 @@ public class PlayerMoveState : PlayerBaseState
 {
     readonly int MoveTreeHash = Animator.StringToHash("MoveTree");
     readonly int MoveSpeedHash = Animator.StringToHash("MoveSpeed");
-    public PlayerMoveState(PlayerStateMachine stateMachine) : base(stateMachine) { }
+
+    bool shouldFade = true;
+
+    public PlayerMoveState(PlayerStateMachine stateMachine, bool shouldFade = true) : base(stateMachine)
+    {
+        this.shouldFade = shouldFade;
+    }
 
     public override void Enter()
     {
-        stateMachine.AnimationController.CrossFadeInFixedTime(MoveTreeHash, 0.1f);
+        stateMachine.AnimationController.SetFloat(MoveSpeedHash, 0f);
+        if (shouldFade)
+            stateMachine.AnimationController.CrossFadeInFixedTime(MoveTreeHash, 0.1f);
+        else
+            stateMachine.AnimationController.Play(MoveTreeHash);
     }
 
     public override void Tick(float deltaTime)

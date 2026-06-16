@@ -5,12 +5,10 @@ public class PlayerHangState : PlayerBaseState
 {
     readonly int hangHash = Animator.StringToHash("Hanging");
 
-    Vector3 closestPoint;
     Vector3 ledgeForward;
 
-    public PlayerHangState(PlayerStateMachine stateMachine, Vector3 closestPoint, Vector3 ledgeForward) : base(stateMachine)
+    public PlayerHangState(PlayerStateMachine stateMachine, Vector3 ledgeForward) : base(stateMachine)
     {
-        this.closestPoint = closestPoint;
         this.ledgeForward = ledgeForward;
     }
 
@@ -22,8 +20,14 @@ public class PlayerHangState : PlayerBaseState
 
     public override void Tick(float deltaTime)
     {
-        if (stateMachine.MoveInput.y < 0f)
+        if (stateMachine.MoveInput.y > 0f)
         {
+            stateMachine.SwitchState(new PlayerClimbState(stateMachine));
+        }
+        else if (stateMachine.MoveInput.y < 0f)
+        {
+            stateMachine.Controller.Move(Vector3.zero);
+            stateMachine.ForceReceiver.Reset();
             stateMachine.SwitchState(new PlayerFallState(stateMachine));
         }
     }
