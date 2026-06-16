@@ -5,6 +5,7 @@ public class PlayerTargetState : PlayerBaseState
     readonly int TargetTreeHash = Animator.StringToHash("TargetTree");
     readonly int TargetForwardHash = Animator.StringToHash("TargetForward");
     readonly int TargetSideHash = Animator.StringToHash("TargetSide");
+
     public PlayerTargetState(PlayerStateMachine stateMachine) : base(stateMachine) { }
 
     public override void Enter()
@@ -35,10 +36,24 @@ public class PlayerTargetState : PlayerBaseState
             return;
         }
 
-        float forwardMove = stateMachine.MoveInput.y;
-        float sideMove = stateMachine.MoveInput.x;
+        float forwardMove = 0;
+        float sideMove = 0;
+        Vector3 moveDirection = Vector3.zero;
 
-        Vector3 moveDirection = new Vector3(sideMove, 0, forwardMove).normalized;
+        if (stateMachine.remainingDodgeTime > 0f)
+        {
+            sideMove = stateMachine.MoveInput.x * stateMachine.DodgeLength / stateMachine.DodgeDuration;
+            forwardMove = stateMachine.MoveInput.y * stateMachine.DodgeLength / stateMachine.DodgeDuration;
+            moveDirection = new Vector3(sideMove, 0, forwardMove);
+
+            stateMachine.remainingDodgeTime = Mathf.Max(stateMachine.remainingDodgeTime - deltaTime, 0f);
+        }
+        else
+        {
+            sideMove = stateMachine.MoveInput.x;
+            forwardMove = stateMachine.MoveInput.y;
+            moveDirection = new Vector3(sideMove, 0, forwardMove).normalized;
+        }
         Vector3 targetDirection = Quaternion.AngleAxis(stateMachine.MainCamera.eulerAngles.y, Vector3.up) * moveDirection;
 
         stateMachine.AnimationController.SetFloat(TargetForwardHash, forwardMove);

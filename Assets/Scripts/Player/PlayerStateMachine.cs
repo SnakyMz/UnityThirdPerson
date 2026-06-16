@@ -7,6 +7,8 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] public GameObject weaponHitbox;
     public Vector3 Velocity { get; private set; }
     public Vector2 MoveInput { get; private set; }
+    public Vector2 DodgeInput { get; private set; }
+    public float remainingDodgeTime = 0;
     public CharacterController Controller { get; private set; }
     public Animator AnimationController { get; private set; }
     public Transform MainCamera { get; private set; }
@@ -21,11 +23,17 @@ public class PlayerStateMachine : MonoBehaviour
     [field: SerializeField] public float MoveSpeed { get; private set; }
     [field: SerializeField] public float TargetSpeed { get; private set; }
     [field: SerializeField] public float TurnSpeed { get; private set; }
+    [field: SerializeField] public float DodgeDuration { get; private set; }
+    [field: SerializeField] public float DodgeLength { get; private set; }
+    [field: SerializeField] public float DodgeCooldown { get; private set; }
+    [field: SerializeField] public float JumpForce { get; private set; }
     [field: SerializeField] public Attack[] Attacks { get; private set; }
 
     protected PlayerBaseState currentState;
 
     PlayerInput playerInput;
+
+    float previousDodgeTime = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -92,6 +100,17 @@ public class PlayerStateMachine : MonoBehaviour
             }
         }
 
+        if (context.action.name == "Dodge" && context.performed)
+        {
+            if (Time.time - previousDodgeTime < DodgeCooldown) return;
+            previousDodgeTime = Time.time;
+            remainingDodgeTime = DodgeDuration;
+        }
+
+        if (context.action.name == "Jump" && context.performed)
+        {
+            SwitchState(new PlayerJumpState(this));
+        }
     }
     public void SwitchState(PlayerBaseState newState)
     {

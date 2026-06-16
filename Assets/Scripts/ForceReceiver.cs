@@ -47,4 +47,9 @@ public class ForceReceiver : MonoBehaviour
             agent.enabled = false;
         }
     }
+
+    public void AddJump(float jumpForce)
+    {
+        verticalVelocity += jumpForce;
+    }
 }
