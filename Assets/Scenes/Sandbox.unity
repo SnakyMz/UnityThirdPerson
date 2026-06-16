@@ -1475,6 +1475,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6165269765250199471, guid: 124cd5ebfb7d8b142ab59afa17fe81b9, type: 3}
+      propertyPath: Damping
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8252152536589479503, guid: 124cd5ebfb7d8b142ab59afa17fe81b9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.2109587

@@ -2344,14 +2344,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStateMachine
   weaponHitbox: {fileID: 3764824396249990201}
-  remainingDodgeTime: 0
   <Health>k__BackingField: {fileID: 6924631916351577210}
   <MoveSpeed>k__BackingField: 5
   <TargetSpeed>k__BackingField: 4
   <TurnSpeed>k__BackingField: 5
-  <DodgeDuration>k__BackingField: 0.1
-  <DodgeLength>k__BackingField: 1
-  <DodgeCooldown>k__BackingField: 2
+  <DodgeDuration>k__BackingField: 0.6
+  <DodgeLength>k__BackingField: 3
   <JumpForce>k__BackingField: 4
   <Attacks>k__BackingField:
   - <AnimationName>k__BackingField: Attack1

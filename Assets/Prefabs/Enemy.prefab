@@ -2812,7 +2812,7 @@ MonoBehaviour:
   knockback: 10
   weaponHitbox: {fileID: 226116898142786916}
   <DetectionRange>k__BackingField: 10
-  <MovementSpeed>k__BackingField: 8
+  <MovementSpeed>k__BackingField: 5
   <AttackRange>k__BackingField: 1.5
   <Health>k__BackingField: {fileID: 8948894660160905944}
   <Target>k__BackingField: {fileID: 3225274604519197819}

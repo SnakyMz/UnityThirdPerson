@@ -36,24 +36,10 @@ public class PlayerTargetState : PlayerBaseState
             return;
         }
 
-        float forwardMove = 0;
-        float sideMove = 0;
-        Vector3 moveDirection = Vector3.zero;
+        float sideMove = stateMachine.MoveInput.x;
+        float forwardMove = stateMachine.MoveInput.y;
+        Vector3 moveDirection = new Vector3(sideMove, 0, forwardMove).normalized;
 
-        if (stateMachine.remainingDodgeTime > 0f)
-        {
-            sideMove = stateMachine.MoveInput.x * stateMachine.DodgeLength / stateMachine.DodgeDuration;
-            forwardMove = stateMachine.MoveInput.y * stateMachine.DodgeLength / stateMachine.DodgeDuration;
-            moveDirection = new Vector3(sideMove, 0, forwardMove);
-
-            stateMachine.remainingDodgeTime = Mathf.Max(stateMachine.remainingDodgeTime - deltaTime, 0f);
-        }
-        else
-        {
-            sideMove = stateMachine.MoveInput.x;
-            forwardMove = stateMachine.MoveInput.y;
-            moveDirection = new Vector3(sideMove, 0, forwardMove).normalized;
-        }
         Vector3 targetDirection = Quaternion.AngleAxis(stateMachine.MainCamera.eulerAngles.y, Vector3.up) * moveDirection;
 
         stateMachine.AnimationController.SetFloat(TargetForwardHash, forwardMove);
